@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaftanLhama | Seller Dashboard</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-dark: #B8860B;
+            --rose: #FFF0F5;
+            --rose-deep: #FF69B4;
+            --text-dark: #2D2D2D;
+            --text-muted: #757575;
+            --white: #FFFFFF;
+            --sidebar-bg: #1A1A1A;
+            --bg-light: #F8F9FA;
+            --border: #EAEAEA;
+            --success: #2E7D32;
+            --warning: #F57C00;
+            --danger: #D32F2F;
+            --info: #1976D2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-bg);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .sidebar-header .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 2rem 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            padding: 0.2rem 1.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            color: #AAAAAA;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--white);
+        }
+
+        .nav-link.active {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        .sidebar-footer {
+            padding: 2rem;
+            border-top: 1px solid #333;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 2rem 3rem;
+            width: calc(100% - 280px);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .header-title h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            width: 300px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* View Containers */
+        .view-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stats & Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border: 1px solid var(--border);
+        }
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon-sales { background: #E8F5E9; color: var(--success); }
+        .icon-orders { background: #FFF3E0; color: var(--warning); }
+        .icon-customers { background: #E3F2FD; color: var(--info); }
+        .icon-stock { background: #F3E5F5; color: #7B1FA2; }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* Tables & Lists */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid #f9f9f9;
+            font-size: 0.85rem;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .status-completed { background: #E8F5E9; color: #2E7D32; }
+        .status-processing { background: #FFF3E0; color: #EF6C00; }
+        .status-shipped { background: #E3F2FD; color: #1976D2; }
+
+        /* Custom Views Styles */
+        .customer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .customer-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .customer-avatar-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .customer-card h3 {
+            margin-bottom: 0.5rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        .customer-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .finance-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--white);
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .finance-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .main-content { margin-left: 0; width: 100%; padding: 2rem 1.5rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo">KaftanLhama</a>
+            <p style="font-size: 0.6rem; color: #666; margin-top: 5px; text-transform: uppercase; letter-spacing: 2px;">Atelier Management</p>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item"><a onclick="switchView('dashboard')" class="nav-link active" id="link-dashboard"><i class="fas fa-th-large"></i>Dashboard</a></li>
+            <li class="nav-item"><a onclick="switchView('orders')" class="nav-link" id="link-orders"><i class="fas fa-shopping-cart"></i>Orders</a></li>
+            <li class="nav-item"><a onclick="switchView('tailoring')" class="nav-link" id="link-tailoring"><i class="fas fa-scissors"></i>Tailoring</a></li>
+            <li class="nav-item"><a onclick="switchView('inventory')" class="nav-link" id="link-inventory"><i class="fas fa-layer-group"></i>Inventory</a></li>
+            <li class="nav-item"><a onclick="switchView('customers')" class="nav-link" id="link-customers"><i class="fas fa-users"></i>Customers</a></li>
+            <li class="nav-item"><a onclick="switchView('finance')" class="nav-link" id="link-finance"><i class="fas fa-chart-line"></i>Finance</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="user-avatar">SL</div>
+                <div>
+                    <h4 style="font-size: 0.85rem;">Si Lhoussine</h4>
+                    <p style="font-size: 0.7rem; color: #777;">Master Artisan</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header>
+            <div class="header-title">
+                <h1 id="view-title">Dashboard Overview</h1>
+                <p id="view-subtitle">Welcome back, Si Lhoussine. Here is your business status.</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search anything...">
+                </div>
+                <div class="user-avatar" style="background: var(--bg-light); border: 1px solid var(--border); color: var(--text-dark); cursor: pointer;">
+                    <i class="fas fa-bell"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- VIEW: DASHBOARD -->
+        <section id="view-dashboard" class="view-section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon icon-sales"><i class="fas fa-wallet"></i></div>
+                    <div class="stat-value">145,200 MAD</div>
+                    <div class="stat-label">Total Sales</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-orders"><i class="fas fa-shopping-bag"></i></div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">Total Orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-customers"><i class="fas fa-users"></i></div>
+                    <div class="stat-value">128</div>
+                    <div class="stat-label">Customers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-stock"><i class="fas fa-box"></i></div>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-label">Stock Status</div>
+                </div>
+            </div>
+
+            <div class="finance-grid">
+                <div class="card">
+                    <div class="card-header"><h2>Sales Activity</h2></div>
+                    <canvas id="salesChart" height="250"></canvas>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h2>Top Categories</h2></div>
+                    <canvas id="categoryChart" height="250"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: ORDERS -->
+        <section id="view-orders" class="view-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Orders List</h2>
+                    <div style="display:flex; gap:1rem;">
+                        <select style="padding:0.5rem; border:1px solid var(--border); border-radius:8px; outline:none;">
+                            <option>All Status</option>
+                            <option>Completed</option>
+                            <option>Processing</option>
+                            <option>Shipped</option>
+                        </select>
+                        <button class="btn-icon" style="width: auto; padding: 0 1rem;">Export CSV</button>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Item</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-list"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VIEW: CUSTOMERS -->
+        <section id="view-customers" class="view-section">
+            <div class="customer-grid" id="customers-grid"></div>
+        </section>
+
+        <!-- VIEW: TAILORING -->
+        <section id="view-tailoring" class="view-section">
+            <div class="card">
+                <div class="card-header"><h2>Active Tailoring Projects</h2></div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Project ID</th>
+                            <th>Artisan</th>
+                            <th>Piece</th>
+                            <th>Phase</th>
+                            <th>Deadline</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tailoring-list"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VIEW: INVENTORY -->
+        <section id="view-inventory" class="view-section">
+            <div class="card">
+                <div class="card-header"><h2>Fabric & Materials Stock</h2></div>
+                <div class="customer-grid" id="inventory-grid"></div>
+            </div>
+        </section>
+
+        <!-- VIEW: FINANCE -->
+        <section id="view-finance" class="view-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Net Profit</div>
+                    <div class="stat-value" style="color: var(--success);">+82,000 MAD</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Expenses</div>
+                    <div class="stat-value" style="color: var(--danger);">-45,000 MAD</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Pending Payments</div>
+                    <div class="stat-value" style="color: var(--warning);">18,500 MAD</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Tax Estimation</div>
+                    <div class="stat-value">12,300 MAD</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header"><h2>Monthly Financial Report</h2></div>
+                <canvas id="financeReportChart" height="300"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Simulated Data
+        const ordersData = [
+            { id: "#KFL-2024-001", customer: "Laila Bennani", item: "Royal Rose Caftan", amount: 12500, status: "Completed" },
+            { id: "#KFL-2024-002", customer: "Amine Alami", item: "Sahara Gold Jabador", amount: 7500, status: "Processing" },
+            { id: "#KFL-2024-003", customer: "Sofia Idrissi", item: "Midnight Silk Djellaba", amount: 8900, status: "Shipped" },
+            { id: "#KFL-2024-004", customer: "Karim Tazi", item: "Emerald Djellaba", amount: 11000, status: "Completed" },
+            { id: "#KFL-2024-005", customer: "Yasmine Filali", item: "Pearl Bridal Caftan", amount: 28500, status: "Processing" },
+            { id: "#KFL-2024-006", customer: "Omar Mansouri", item: "Classic Black Caftan", amount: 9500, status: "Completed" }
+        ];
+
+        const customersData = [
+            { name: "Laila Bennani", email: "laila.b@email.com", totalOrders: 4, spent: 45000, color: "#D4AF37" },
+            { name: "Amine Alami", email: "amine.a@email.com", totalOrders: 1, spent: 7500, color: "#FF69B4" },
+            { name: "Sofia Idrissi", email: "sofia.i@email.com", totalOrders: 2, spent: 17800, color: "#2D2D2D" },
+            { name: "Karim Tazi", email: "karim.t@email.com", totalOrders: 3, spent: 33000, color: "#2E7D32" },
+            { name: "Yasmine Filali", email: "yasmine.f@email.com", totalOrders: 1, spent: 28500, color: "#EF6C00" },
+            { name: "Ghita Fassi", email: "ghita.f@email.com", totalOrders: 5, spent: 52000, color: "#1976D2" }
+        ];
+
+        const tailoringData = [
+            { id: "PROJ-101", artisan: "Maâlem Driss", piece: "Royal Caftan", phase: "Embroidery", deadline: "2024-05-10", progress: 65 },
+            { id: "PROJ-102", artisan: "Maâlem Rachid", piece: "Silk Djellaba", phase: "Cutting", deadline: "2024-05-12", progress: 20 },
+            { id: "PROJ-103", artisan: "Zahra (Finishing)", piece: "Bridal Caftan", phase: "Beading", deadline: "2024-05-15", progress: 85 }
+        ];
+
+        const inventoryData = [
+            { name: "Silk Velvet (Ruby)", type: "Fabric", stock: "12m", health: 30 },
+            { name: "Silk Crepe (Sky)", type: "Fabric", stock: "45m", health: 80 },
+            { name: "Gold Sfifa", type: "Accessory", stock: "200m", health: 90 },
+            { name: "Crystal Beads", type: "Accessory", stock: "5kg", health: 45 }
+        ];
+
+        // Functions
+        function formatMoney(n) { return n.toLocaleString('en-US') + ' MAD'; }
+
+        function switchView(view) {
+            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            
+            document.getElementById(`view-${view}`).classList.add('active');
+            document.getElementById(`link-${view}`).classList.add('active');
+            
+            // Titles
+            const titles = {
+                dashboard: ["Dashboard Overview", "Atelier business status at a glance."],
+                orders: ["Orders Management", "Confirm and track customer purchases."],
+                tailoring: ["Tailoring Progress", "Track Maâlems work and production phases."],
+                inventory: ["Inventory Stock", "Monitor fabrics and sewing materials."],
+                customers: ["Customer Database", "Manage your clientele and history."],
+                finance: ["Financial Reports", "Deep dive into your revenue and costs."]
+            };
+            document.getElementById('view-title').innerText = titles[view][0];
+            document.getElementById('view-subtitle').innerText = titles[view][1];
+
+            renderData(view);
+        }
+
+        function renderData(view) {
+            if (view === 'orders') {
+                const list = document.getElementById('orders-list');
+                list.innerHTML = ordersData.map(o => `
+                    <tr>
+                        <td style="font-weight:600;">${o.id}</td>
+                        <td>${o.customer}</td>
+                        <td style="font-size:0.8rem;">${o.item}</td>
+                        <td style="font-weight:600;">${formatMoney(o.amount)}</td>
+                        <td><span class="status-badge status-${o.status.toLowerCase()}">${o.status}</span></td>
+                        <td><div class="action-btns"><button class="btn-icon"><i class="fas fa-eye"></i></button><button class="btn-icon"><i class="fas fa-check"></i></button></div></td>
+                    </tr>
+                `).join('');
+            }
+            if (view === 'customers') {
+                const grid = document.getElementById('customers-grid');
+                grid.innerHTML = customersData.map(c => `
+                    <div class="customer-card">
+                        <div class="customer-avatar-large" style="background:${c.color}">${c.name[0]}</div>
+                        <h3>${c.name}</h3>
+                        <p>${c.email}</p>
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-top:1rem; border-top:1px solid #eee; padding-top:1rem;">
+                            <div>Orders: <strong>${c.totalOrders}</strong></div>
+                            <div>Spent: <strong>${formatMoney(c.spent)}</strong></div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            if (view === 'tailoring') {
+                const list = document.getElementById('tailoring-list');
+                list.innerHTML = tailoringData.map(p => `
+                    <tr>
+                        <td style="font-weight:600;">${p.id}</td>
+                        <td>${p.artisan}</td>
+                        <td>${p.piece}</td>
+                        <td>${p.phase}</td>
+                        <td>${p.deadline}</td>
+                        <td>
+                            <div style="width:100px; height:8px; background:#eee; border-radius:10px; overflow:hidden;">
+                                <div style="width:${p.progress}%; height:100%; background:var(--gold);"></div>
+                            </div>
+                            <span style="font-size:0.7rem; color:#777;">${p.progress}% Complete</span>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+            if (view === 'inventory') {
+                const grid = document.getElementById('inventory-grid');
+                grid.innerHTML = inventoryData.map(i => `
+                    <div class="customer-card" style="text-align:left; padding:1.5rem;">
+                        <h4 style="font-family:'Cinzel',serif; margin-bottom:0.5rem;">${i.name}</h4>
+                        <div style="color:var(--text-muted); font-size:0.75rem; margin-bottom:1rem;">Type: ${i.type} | Stock: ${i.stock}</div>
+                        <div style="width:100%; height:6px; background:#eee; border-radius:10px; overflow:hidden;">
+                            <div style="width:${i.health}%; height:100%; background:${i.health < 40 ? 'var(--danger)' : 'var(--gold)'};"></div>
+                        </div>
+                        <div style="font-size:0.7rem; color:${i.health < 40 ? 'var(--danger)' : '#777'}; margin-top:5px;">
+                            ${i.health < 40 ? 'LOW STOCK - Order soon' : 'Stock healthy'}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Charts Initialization
+        function initCharts() {
+            // Sales Chart
+            new Chart(document.getElementById('salesChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{ label: 'Sales (MAD)', data: [65000, 78000, 92000, 115000, 145200, 160000], borderColor: '#D4AF37', tension: 0.4, fill: true, backgroundColor: 'rgba(212,175,55,0.05)' }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+            });
+
+            // Category Chart
+            new Chart(document.getElementById('categoryChart').getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Caftans', 'Djellabas', 'Jabadors', 'Others'],
+                    datasets: [{ data: [55, 25, 15, 5], backgroundColor: ['#D4AF37', '#FF69B4', '#1A1A1A', '#F8F9FA'], borderWidth: 0 }]
+                },
+                options: { responsive: true, cutout: '70%' }
+            });
+
+            // Finance Report Chart
+            new Chart(document.getElementById('financeReportChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                    datasets: [
+                        { label: 'Revenue', data: [80, 95, 110, 130, 145], backgroundColor: '#D4AF37' },
+                        { label: 'Expenses', data: [40, 42, 45, 48, 50], backgroundColor: '#2D2D2D' }
+                    ]
+                },
+                options: { responsive: true, scales: { y: { title: { display: true, text: 'Amount in 1,000 MAD' } } } }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            renderData('dashboard');
+        });
+    </script>
+</body>
+
+</html>
