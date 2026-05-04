@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fils de Soie | Luxury Moroccan Fashion</title>
+    <meta name="description"
+        content="Discover Fils de Soie, the premier luxury Moroccan fashion brand offering exquisite caftans, djellabas, and takchitas.">
+
+    <!-- Fonts: Cinzel for luxury headings, Montserrat for clean modern body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Color Palette */
+            --gold: #D4AF37;
+            --gold-light: #F3E5AB;
+            --gold-dark: #AA8C2C;
+            --rose: #F4C2C2;
+            --rose-dark: #DDA7A5;
+            --rose-light: #FFF0F0;
+            --white: #FFFFFF;
+            --bg-light: #FCFAFA;
+            --black: #1A1A1A;
+            --text-dark: #2C2C2C;
+            --text-muted: #7A7A7A;
+            --border: #EAEAEA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .brand-font {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                right: -100%;
+            }
+
+            to {
+                right: 0;
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 4rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        nav.scrolled .nav-links a,
+        nav.scrolled .logo,
+        nav.scrolled .nav-icons button {
+            color: var(--text-dark);
+        }
+
+        .nav-links,
+        .nav-icons {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+
+        .nav-icons button {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-icons button:hover {
+            color: var(--gold);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -10px;
+            background: var(--rose-dark);
+            color: var(--white);
+            font-size: 0.7rem;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--black);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background: var(--rose);
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--rose-dark);
+            color: var(--white);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-dark);
+            border: 1px solid var(--text-dark);
+        }
+
+        .btn-outline:hover {
+            background: var(--text-dark);
+            color: var(--white);
+        }
+
+        .btn-full {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center 20%;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 2rem;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 6px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            letter-spacing: 3px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        /* Common Section Styles */
+        section {
+            padding: 8rem 4rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header .divider {
+            width: 80px;
+            height: 2px;
+            background: var(--gold);
+            margin: 0 auto;
+        }
+
+        /* Categories */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            position: relative;
+            height: 650px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .category-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .category-card:hover .category-img {
+            transform: scale(1.08);
+        }
+
+        .category-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem;
+            color: var(--white);
+            transition: background 0.4s ease;
+        }
+
+        .category-card:hover .category-overlay {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .category-title {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .category-link {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.4s ease;
+            color: var(--gold);
+        }
+
+        .category-card:hover .category-link {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Products Section */
+        #collection {
+            background-color: var(--white);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            margin-bottom: 1.5rem;
+            background-color: #f5f5f5;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        .product-action {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            text-align: center;
+            transition: bottom 0.4s ease;
+            border-top: 1px solid var(--border);
+        }
+
+        .product-card:hover .product-action {
+            bottom: 0;
+        }
+
+        .product-action button {
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .product-action button:hover {
+            color: var(--gold);
+        }
+
+        .product-info {
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .product-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            letter-spacing: 0.5px;
+        }
+
+        .product-price {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+
+        /* Product Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--white);
+            width: 90%;
+            max-width: 1100px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(30px);
+            transition: transform 0.4s ease;
+            display: flex;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--bg-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            color: var(--text-dark);
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--rose);
+            color: var(--white);
+            transform: rotate(90deg);
+        }
+
+        .product-modal-img {
+            flex: 1;
+            min-height: 600px;
+            background: #f5f5f5;
+        }
+
+        .product-modal-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-modal-details {
+            flex: 1;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .product-modal-title {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .product-modal-price {
+            font-size: 1.5rem;
+            color: var(--gold-dark);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .product-modal-desc {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+        }
+
+        .size-selector {
+            margin-bottom: 2.5rem;
+        }
+
+        .size-selector h4 {
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        .sizes {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--border);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .size-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .size-btn.selected {
+            border-color: var(--text-dark);
+            background: var(--text-dark);
+            color: var(--white);
+        }
+
+        /* Cart Sidebar */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(3px);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 450px;
+            height: 100vh;
+            background: var(--white);
+            z-index: 2001;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            transition: right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .cart-close:hover {
+            color: var(--black);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cart-item-img {
+            width: 90px;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .cart-item-title {
+            font-family: 'Cinzel', serif;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .cart-item-price {
+            color: var(--gold-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .cart-item-size {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid var(--border);
+            width: fit-content;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .qty-btn:hover {
+            color: var(--black);
+        }
+
+        .cart-footer {
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-light);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Checkout Section */
+        #checkout-section {
+            display: none;
+            background: var(--bg-light);
+            padding: 8rem 4rem 4rem;
+            min-height: 100vh;
+        }
+
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .checkout-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+        }
+
+        .checkout-form-container {
+            background: var(--white);
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .checkout-form-container h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            transition: border-color 0.3s;
+            background: var(--bg-light);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--gold);
+            background: var(--white);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .payment-card {
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--white);
+        }
+
+        .payment-card.selected {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1);
+        }
+
+        .payment-card i {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        .payment-card.selected i {
+            color: var(--gold-dark);
+        }
+
+        .checkout-summary-box {
+            background: var(--white);
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .checkout-summary-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 6rem 4rem 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-brand {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .footer-desc {
+            color: #999;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-socials a {
+            width: 45px;
+            height: 45px;
+            border: 1px solid #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-socials a:hover {
+            background: var(--rose);
+            border-color: var(--rose);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1.8rem;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-newsletter p {
+            color: #999;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-newsletter form {
+            position: relative;
+        }
+
+        .footer-newsletter input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #555;
+            color: var(--white);
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .footer-newsletter input:focus {
+            border-color: var(--gold);
+        }
+
+        .footer-newsletter button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #222;
+            color: #666;
+            font-size: 0.85rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+
+            .categories-grid,
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                flex-direction: column;
+                max-height: 95vh;
+            }
+
+            .product-modal-img {
+                min-height: 400px;
+            }
+
+            .product-modal-details {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            nav.scrolled {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 5rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .categories-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-card {
+                height: 450px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .checkout-form-container {
+                padding: 2rem;
+            }
+
+            .checkout-summary-box {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo" onclick="goHome(event)">Fils de Soie</a>
+        <div class="nav-links">
+            <a href="#" onclick="goHome(event)">Home</a>
+            <a href="#categories" onclick="goHome(event)">Categories</a>
+            <a href="#collection" onclick="goHome(event)">Collection</a>
+        </div>
+        <div class="nav-icons">
+            <button onclick="openCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cart-count">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content wrapper to hide during checkout -->
+    <div id="main-content">
+
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-content">
+                <h1>Elegance Woven in Silk</h1>
+                <p>The New Luxury Moroccan Collection</p>
+                <a href="#collection" class="btn btn-primary">Discover the Collection</a>
+            </div>
+        </header>
+
+        <!-- Categories Section -->
+        <section id="categories">
+            <div class="section-header animate-on-scroll">
+                <h2>Our Universes</h2>
+                <p>Explore the heritage of Moroccan luxury</p>
+                <div class="divider"></div>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1583391733958-65e2716198f1?auto=format&fit=crop&w=800&q=80"
+                        alt="Caftans" class="category-img">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Caftans</h3>
+                        <span class="category-link">Shop Collection <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+                <div class="category-card animate-on-scroll" style="transition-delay: 0.1s;">
+                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80"
+                        alt="Takchitas" class="category-img">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Takchitas</h3>
+                        <span class="category-link">Shop Collection <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+                <div class="category-card animate-on-scroll" style="transition-delay: 0.2s;">
+                    <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80"
+                        alt="Djellabas" class="category-img">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Djellabas</h3>
+                        <span class="category-link">Shop Collection <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="collection">
+            <div class="section-header animate-on-scroll">
+                <h2>Latest Arrivals</h2>
+                <p>Masterpieces crafted by our artisans</p>
+                <div class="divider"></div>
+            </div>
+            <div class="products-grid" id="products-grid">
+                <!-- Products dynamically injected here via JS -->
+            </div>
+            <div style="text-align: center; margin-top: 4rem;" class="animate-on-scroll">
+                <button class="btn btn-outline" style="padding: 1rem 4rem;">View All Styles</button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-grid">
+                <div>
+                    <h2 class="footer-brand">Fils de Soie</h2>
+                    <p class="footer-desc">Redefining traditional Moroccan elegance for the modern woman. Each piece is
+                        uniquely handcrafted using premium silks and golden threads.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Caftans</a></li>
+                        <li><a href="#">Takchitas</a></li>
+                        <li><a href="#">Djellabas</a></li>
+                        <li><a href="#">Bridal Collection</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Customer Care</h4>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+                    <form onsubmit="event.preventDefault(); alert('Subscribed!');">
+                        <input type="email" placeholder="Enter your email address" required>
+                        <button type="submit"><i class="fas fa-arrow-right"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Fils de Soie. Simulation UI developed for demonstration.
+            </div>
+        </footer>
+    </div>
+
+    <!-- Checkout Section -->
+    <section id="checkout-section">
+        <div class="checkout-container">
+            <div class="checkout-header">
+                <h2>Secure Checkout</h2>
+                <p>Complete your luxury purchase</p>
+            </div>
+
+            <div class="checkout-grid">
+                <!-- Form Area -->
+                <div>
+                    <div class="checkout-form-container" style="margin-bottom: 2rem;">
+                        <h3>1. Shipping Information</h3>
+                        <form id="shipping-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" required placeholder="Amina">
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" required placeholder="Bennani">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" required placeholder="amina@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" required placeholder="+212 600 000 000">
+                            </div>
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" required placeholder="123 Avenue Mohammed V">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input type="text" required placeholder="Casablanca">
+                                </div>
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <select required>
+                                        <option value="MA">Morocco</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="SA">Saudi Arabia</option>
+                                        <option value="QA">Qatar</option>
+                                        <option value="FR">France</option>
+                                        <option value="US">United States</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="checkout-form-container">
+                        <h3>2. Payment Method</h3>
+                        <div class="payment-methods">
+                            <div class="payment-card selected" onclick="selectPayment(this)">
+                                <i class="fas fa-credit-card"></i>
+                                <div>Credit Card</div>
+                            </div>
+                            <div class="payment-card" onclick="selectPayment(this)">
+                                <i class="fab fa-paypal"></i>
+                                <div>PayPal</div>
+                            </div>
+                        </div>
+                        <form id="payment-form">
+                            <div class="form-group">
+                                <label>Cardholder Name</label>
+                                <input type="text" placeholder="Name on card">
+                            </div>
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" placeholder="0000 0000 0000 0000">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Expiry Date</label>
+                                    <input type="text" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group">
+                                    <label>CVC</label>
+                                    <input type="text" placeholder="123">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div>
+                    <div class="checkout-summary-box">
+                        <h3>Order Summary</h3>
+                        <div id="checkout-items-container" style="margin-bottom: 2rem;">
+                            <!-- Injected via JS -->
+                        </div>
+
+                        <div style="border-top: 1px solid #eaeaea; padding-top: 1.5rem; margin-bottom: 1rem;">
+                            <div
+                                style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: #777;">
+                                <span>Subtotal</span>
+                                <span id="checkout-subtotal">0 MAD</span>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: #777;">
+                                <span>Shipping (Express)</span>
+                                <span>Free</span>
+                            </div>
+                        </div>
+
+                        <div
+                            style="border-top: 1px solid #eaeaea; padding-top: 1.5rem; margin-bottom: 2rem; display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 600; font-family: 'Cinzel', serif;">
+                            <span>Total</span>
+                            <span id="checkout-total">0 MAD</span>
+                        </div>
+
+                        <button class="btn btn-primary btn-full" onclick="processOrder()">Complete Purchase</button>
+                        <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: #777;"><i
+                                class="fas fa-lock"></i> Secure SSL Encrypted Checkout</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Modal -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProductModal()"><i class="fas fa-times"></i></button>
+            <div class="product-modal-img">
+                <img id="modal-img" src="" alt="Product">
+            </div>
+            <div class="product-modal-details">
+                <h2 class="product-modal-title" id="modal-title">Product Title</h2>
+                <div class="product-modal-price" id="modal-price">0 MAD</div>
+                <p class="product-modal-desc" id="modal-desc">Product description goes here...</p>
+
+                <div class="size-selector">
+                    <h4>Select Size</h4>
+                    <div class="sizes">
+                        <button class="size-btn">S</button>
+                        <button class="size-btn selected">M</button>
+                        <button class="size-btn">L</button>
+                        <button class="size-btn">XL</button>
+                        <button class="size-btn">XXL</button>
+                        <button class="size-btn">3XL</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-full" onclick="addToCart()">Add to Cart</button>
+
+                <div style="margin-top: 2rem; border-top: 1px solid #eaeaea; padding-top: 1.5rem;">
+                    <p style="font-size: 0.85rem; color: #777; margin-bottom: 0.5rem;"><i class="fas fa-truck"
+                            style="margin-right: 10px; color: #d4af37;"></i> Free Express Shipping</p>
+                    <p style="font-size: 0.85rem; color: #777;"><i class="fas fa-undo"
+                            style="margin-right: 10px; color: #d4af37;"></i> 14-Day Returns</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="cart-close" onclick="closeCart()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items injected here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal</span>
+                <span id="cart-total-price">0 MAD</span>
+            </div>
+            <p style="font-size: 0.8rem; color: #777; margin-bottom: 1.5rem; text-align: center;">Taxes and shipping
+                calculated at checkout</p>
+            <button class="btn btn-primary btn-full" onclick="goToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Dummy Product Data
+        const products = [
+            {
+                id: 1,
+                name: "Royal Rose Caftan",
+                price: 12500,
+                image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80",
+                description: "An elegant handmade caftan crafted from exquisite silk rose fabric, featuring intricate gold sfifa embroidery and delicate crystal embellishments. Perfect for the most prestigious events."
+            },
+            {
+                id: 2,
+                name: "Midnight Silk Djellaba",
+                price: 8900,
+                image: "https://images.unsplash.com/photo-1572804013309-82a891488000?auto=format&fit=crop&w=800&q=80",
+                description: "A classic navy djellaba featuring premium silk crepe and delicate artisanal details. Modern elegance meets traditional craftsmanship in this versatile piece."
+            },
+            {
+                id: 3,
+                name: "Sahara Gold Takchita",
+                price: 21000,
+                image: "https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?auto=format&fit=crop&w=800&q=80",
+                description: "A two-piece masterpiece radiating golden hues. Made with luxurious brocade and sheer organza, this takchita is heavily hand-beaded by our master artisans."
+            },
+            {
+                id: 4,
+                name: "Pearl White Bridal Caftan",
+                price: 28500,
+                image: "https://images.unsplash.com/photo-1612336307429-8a898d10e223?auto=format&fit=crop&w=800&q=80",
+                description: "Pristine white silk caftan adorned with freshwater pearls and silver metallic thread. A breathtaking creation designed for the modern luxury bride."
+            },
+            {
+                id: 5,
+                name: "Emerald Dream Dress",
+                price: 11000,
+                image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80",
+                description: "Deep green luxury traditional dress with a modern cape twist. Flowing georgette fabric drapes beautifully to create a regal silhouette."
+            },
+            {
+                id: 6,
+                name: "Blush Pink Takchita",
+                price: 18500,
+                image: "https://images.unsplash.com/photo-1583391733958-65e2716198f1?auto=format&fit=crop&w=800&q=80",
+                description: "Soft blush pink layers with heavy gold sfifa, aakads, and crystal embellishments. Includes a matching hand-woven silk belt."
+            },
+            {
+                id: 7,
+                name: "Ruby Velvet Caftan",
+                price: 16000,
+                image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80",
+                description: "Rich ruby red velvet caftan, perfect for winter luxury. Hand-embroidered with antique gold thread (tarz ntaa) for a truly majestic appearance."
+            },
+            {
+                id: 8,
+                name: "Oasis Blue Djellaba",
+                price: 9500,
+                image: "https://images.unsplash.com/photo-1550614000-4b95d4662247?auto=format&fit=crop&w=800&q=80",
+                description: "Lightweight, flowing blue djellaba for elegant everyday wear. Features subtle silver embroidery and a modern tailored fit."
+            }
+        ];
+
+        // State
+        let cart = [];
+        let currentProduct = null;
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            setupScrollEffects();
+            updateCartUI();
+        });
+
+        // Format currency
+        const formatMoney = (amount) => {
+            return amount.toLocaleString('en-US') + ' MAD';
+        };
+
+        // Render Products
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = products.map((product, index) => `
+                <div class="product-card animate-on-scroll" style="transition-delay: ${index * 0.1}s" onclick="openProductModal(${product.id})">
+                    <div class="product-img-wrapper">
+                        <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy">
+                        <div class="product-action">
+                            <button onclick="event.stopPropagation(); openProductModal(${product.id})">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-price">${formatMoney(product.price)}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal Functions
+        function openProductModal(id) {
+            currentProduct = products.find(p => p.id === id);
+
+            document.getElementById('modal-img').src = currentProduct.image;
+            document.getElementById('modal-title').textContent = currentProduct.name;
+            document.getElementById('modal-price').textContent = formatMoney(currentProduct.price);
+            document.getElementById('modal-desc').textContent = currentProduct.description;
+
+            // Reset sizes
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
+            document.querySelectorAll('.size-btn')[1].classList.add('selected'); // Default to M
+
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Handle Size Selection
+        document.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+                e.target.classList.add('selected');
+            });
+        });
+
+        // Cart Functions
+        function addToCart() {
+            const sizeBtn = document.querySelector('.size-btn.selected');
+            if (!sizeBtn) return;
+
+            const size = sizeBtn.textContent;
+
+            const existingItem = cart.find(item => item.id === currentProduct.id && item.size === size);
+
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({
+                    ...currentProduct,
+                    size,
+                    qty: 1
+                });
+            }
+
+            closeProductModal();
+            updateCartUI();
+
+            // Show cart and trigger a small animation on the badge
+            openCart();
+            const badge = document.getElementById('cart-count');
+            badge.style.transform = 'scale(1.5)';
+            setTimeout(() => badge.style.transform = 'scale(1)', 300);
+        }
+
+        function updateCartUI() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotalPrice = document.getElementById('cart-total-price');
+
+            // Update badge
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCount.textContent = totalQty;
+
+            // Update items list
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div style="text-align: center; color: #777; margin-top: 3rem;">
+                        <i class="fas fa-shopping-bag" style="font-size: 3rem; color: #eaeaea; margin-bottom: 1rem;"></i>
+                        <p>Your luxury cart is empty.</p>
+                        <button class="btn btn-outline" style="margin-top: 1.5rem;" onclick="closeCart()">Continue Shopping</button>
+                    </div>`;
+            } else {
+                cartItems.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <h4 class="cart-item-title">${item.name}</h4>
+                            <p class="cart-item-price">${formatMoney(item.price)}</p>
+                            <p class="cart-item-size">Size: ${item.size}</p>
+                            <div class="qty-controls">
+                                <button class="qty-btn" onclick="updateQty(${index}, -1)"><i class="fas fa-minus" style="font-size:0.7rem"></i></button>
+                                <span style="font-size:0.9rem; width:20px; text-align:center;">${item.qty}</span>
+                                <button class="qty-btn" onclick="updateQty(${index}, 1)"><i class="fas fa-plus" style="font-size:0.7rem"></i></button>
+                            </div>
+                        </div>
+                        <button onclick="removeItem(${index})" style="background:none; border:none; cursor:pointer; color:#ccc; align-self:flex-start; margin-top:0.5rem;"><i class="fas fa-trash"></i></button>
+                    </div>
+                `).join('');
+            }
+
+            // Update total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            cartTotalPrice.textContent = formatMoney(total);
+        }
+
+        function updateQty(index, change) {
+            cart[index].qty += change;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+
+            // If in checkout, update there too
+            if (document.getElementById('checkout-section').style.display === 'block') {
+                if (cart.length === 0) goHome();
+                else renderCheckoutSummary();
+            }
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            if (document.getElementById('checkout-section').style.display === 'block') {
+                if (cart.length === 0) goHome();
+                else renderCheckoutSummary();
+            }
+        }
+
+        function openCart() {
+            document.getElementById('cart-sidebar').classList.add('active');
+            document.getElementById('cart-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCart() {
+            document.getElementById('cart-sidebar').classList.remove('active');
+            document.getElementById('cart-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Checkout & Navigation
+        function goHome(e) {
+            if (e) e.preventDefault();
+            document.getElementById('checkout-section').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Re-trigger scroll to fix navbar
+            window.dispatchEvent(new Event('scroll'));
+        }
+
+        function goToCheckout() {
+            if (cart.length === 0) return;
+
+            closeCart();
+
+            // Hide main content, show checkout
+            document.getElementById('main-content').style.display = 'none';
+            const checkoutSection = document.getElementById('checkout-section');
+            checkoutSection.style.display = 'block';
+            window.scrollTo(0, 0);
+
+            // Style navbar for checkout (dark text)
+            document.getElementById('navbar').classList.add('scrolled');
+
+            renderCheckoutSummary();
+        }
+
+        function renderCheckoutSummary() {
+            const container = document.getElementById('checkout-items-container');
+
+            container.innerHTML = cart.map(item => `
+                <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="position: relative;">
+                        <img src="${item.image}" style="width: 70px; height: 90px; object-fit: cover; border-radius: 4px;">
+                        <span style="position: absolute; top: -10px; right: -10px; background: #333; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem;">${item.qty}</span>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                        <h4 style="font-family: 'Cinzel', serif; font-size: 0.95rem; margin-bottom: 0.3rem;">${item.name}</h4>
+                        <p style="font-size: 0.8rem; color: #777;">Size: ${item.size}</p>
+                    </div>
+                    <div style="font-weight: 500; display: flex; align-items: center;">${formatMoney(item.price * item.qty)}</div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('checkout-subtotal').textContent = formatMoney(total);
+            document.getElementById('checkout-total').textContent = formatMoney(total);
+        }
+
+        function selectPayment(el) {
+            document.querySelectorAll('.payment-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function processOrder() {
+            // Very simple validation simulation
+            const form = document.getElementById('shipping-form');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            alert("Payment Successful! \n\nThank you for choosing Fils de Soie. This is a front-end simulation, so no real payment was processed. Your luxury items would be on their way!");
+
+            // Reset
+            cart = [];
+            updateCartUI();
+            goHome();
+        }
+
+        // Scroll Effects (Navbar & Fade Ins)
+        function setupScrollEffects() {
+            const navbar = document.getElementById('navbar');
+
+            window.addEventListener('scroll', () => {
+                // Navbar solid on scroll, unless in checkout
+                if (window.scrollY > 50 || document.getElementById('checkout-section').style.display === 'block') {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                // Animate elements
+                const animatedElements = document.querySelectorAll('.animate-on-scroll');
+                animatedElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    // if top of element is in viewport
+                    if (rect.top < window.innerHeight - 100) {
+                        el.classList.add('visible');
+                    }
+                });
+            });
+
+            // Trigger once on load
+            window.dispatchEvent(new Event('scroll'));
+        }
+    </script>
+</body>
+
+</html>
